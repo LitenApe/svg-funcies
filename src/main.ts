@@ -1,2 +1,2 @@
 import './canvas/colors';
-import './canvas/create-on-click';
+import './canvas/circle-on-click';
