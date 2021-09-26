@@ -14,7 +14,7 @@ export function random(min: number, max: number, floor?: boolean): number;
 export function random<T>(
   arrOrMin: Array<T> | number,
   max?: number,
-  floor: boolean = false
+  floor: boolean = true
 ): T | number {
   const isArray = Array.isArray(arrOrMin);
 
@@ -30,4 +30,13 @@ export function random<T>(
       'Invalid arguments! Either provide an array or boundary values'
     );
   }
+}
+
+export function randomColor(
+  base?: number,
+  saturation = 75,
+  lightness = 75
+): string {
+  const baseColor = base || random(0, 360, true);
+  return `hsl(${baseColor}, ${saturation}%, ${lightness}%)`;
 }
