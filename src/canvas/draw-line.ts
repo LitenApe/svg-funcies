@@ -27,7 +27,14 @@ function build() {
     return r;
   }).reduce((acc, cur, i) => `${acc}${i === 0 ? '' : ','}${cur}`, '');
   const color = randomColor();
-  canvas.path(`M${start} C${points} S50,100 ${end}`).fill('none').stroke(color);
+  canvas
+    .path(
+      `M${start} C${points} S${random(center - 20, center + 20)},${
+        bottom_left.y * 0.8
+      } ${end}`
+    )
+    .fill('none')
+    .stroke(color);
 }
 
 canvas.click(build);
