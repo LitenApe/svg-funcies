@@ -11,6 +11,7 @@ function getCoord(node: SVGSVGElement, x: number, y: number) {
 }
 
 function build() {
+  canvas.clear();
   const node = canvas.node;
   const client = node.getBoundingClientRect();
   const top_left = getCoord(node, client.x, client.y);
