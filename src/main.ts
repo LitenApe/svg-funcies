@@ -5,3 +5,4 @@ import './canvas/gridded-circles';
 import './canvas/cursor-trail';
 import './canvas/draw-line';
 import './canvas/gradient-background';
+import './canvas/wave-gradient-background';
