@@ -11,6 +11,7 @@
     "vite": "^2.5.4"
   },
   "dependencies": {
+    "@georgedoescode/generative-utils": "^1.0.37",
     "@svgdotjs/svg.js": "^3.1.1"
   }
 }
