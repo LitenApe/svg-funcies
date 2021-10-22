@@ -1,13 +1,9 @@
 import { Circle, SVG } from '@svgdotjs/svg.js';
 import { createCoordsTransformer } from '../utils/createCoordsTransformer';
-import { random } from '../utils/random';
+import { randomColor } from '../utils/random';
 
 const canvas = SVG().addTo('#cursor-trail').viewbox(0, 0, 200, 200);
 const transform = createCoordsTransformer(canvas.node);
-
-function getHSLColor(base: number, saturation = 75, lightness = 75) {
-  return `hsl(${base}, ${saturation}%, ${lightness}%)`;
-}
 
 function decay(circle: Circle) {
   let timer: number;
@@ -25,11 +21,7 @@ function decay(circle: Circle) {
 function onMouseMove(event: MouseEvent) {
   const { x, y } = transform(event);
 
-  const dot = canvas
-    .circle(10)
-    .cx(x)
-    .cy(y)
-    .fill(getHSLColor(random(0, 360, true)));
+  const dot = canvas.circle(10).cx(x).cy(y).fill(randomColor());
 
   decay(dot);
 }

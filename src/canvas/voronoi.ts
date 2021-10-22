@@ -1,33 +1,21 @@
 import { SVG } from '@svgdotjs/svg.js';
 import { random, randomColor } from '../utils/random';
 import { createVoronoiTessellation } from '@georgedoescode/generative-utils';
+import { getMetaInfo } from '../utils/getMetaInfo';
 
 const canvas = SVG().addTo('#voronoi').viewbox(0, 0, 200, 200);
-const node = canvas.node;
 
-function getCoord(node: SVGSVGElement, x: number, y: number) {
-  const pt = node.createSVGPoint();
-  pt.x = x;
-  pt.y = y;
-  return pt.matrixTransform(node.getScreenCTM()?.inverse());
-}
+// pushes the x = 0 to the left of the canvas
+canvas.node.setAttribute('preserveAspectRatio', 'xMinYMin meet');
 
-const client = node.getBoundingClientRect();
-const top_left = getCoord(node, client.x, client.y);
-const top_right = getCoord(node, client.x + client.width, client.y);
-const bottom_left = getCoord(node, client.x, client.y + client.height);
+const { start_x, end_x, start_y, end_y, width, height } = getMetaInfo(
+  canvas.node
+);
 
-const points = Array.from(Array(1024), () => ({
-  x: random(top_left.x, top_right.x),
-  y: random(top_left.y, bottom_left.y),
+const points = Array.from(Array(512), () => ({
+  x: random(start_x, end_x),
+  y: random(start_y, end_y),
 }));
-
-// points.forEach(({ x, y }) => {
-//   canvas.circle(1).cx(x).cy(y).fill(randomColor());
-// });
-
-const width = top_right.x - top_left.x;
-const height = bottom_left.y - top_left.y;
 
 const tessalation = createVoronoiTessellation({
   width,
@@ -37,7 +25,7 @@ const tessalation = createVoronoiTessellation({
 });
 
 tessalation.cells.forEach((cell: any) => {
-  // canvas.polygon(cell.points).fill('none').stroke(randomColor());
+  canvas.polygon(cell.points).fill('none').stroke(randomColor());
 
   const variant = random(0, 100);
 
